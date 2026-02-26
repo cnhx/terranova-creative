@@ -56,14 +56,36 @@ if (navToggle && siteHeader) {
   });
 }
 
-// --- Contact form: basic UX ---
+// --- Contact form: mailto submission ---
 const form = document.querySelector('.contact-form');
 if (form) {
   form.addEventListener('submit', (e) => {
-    const btn = form.querySelector('button[type="submit"]');
-    if (btn) {
-      btn.textContent = 'Sending…';
-      btn.disabled = true;
+    e.preventDefault();
+
+    const get = (id) => (form.querySelector('#' + id) || {}).value || '';
+    const name = get('name');
+    const org = get('organization');
+    const role = get('role');
+    const email = get('email');
+    const inquiry = get('inquiry');
+
+    if (!name || !email) {
+      alert('Please provide your name and email.');
+      return;
     }
+
+    const subject = `Inquiry from ${name}${org ? ' — ' + org : ''}`;
+    const body = [
+      `Name: ${name}`,
+      org ? `Organization: ${org}` : '',
+      role ? `Role: ${role}` : '',
+      `Email: ${email}`,
+      '',
+      'Inquiry:',
+      inquiry,
+    ].filter(Boolean).join('\n');
+
+    window.location.href =
+      `mailto:svampire@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   });
 }

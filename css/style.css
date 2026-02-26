@@ -118,22 +118,14 @@ a {
 .logo {
   display: flex;
   align-items: center;
-  gap: 12px;
   text-decoration: none;
   color: var(--color-black);
 }
 
-.logo-mark {
-  flex-shrink: 0;
-}
-
-.logo-text {
-  font-family: var(--font-serif);
-  font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--color-black);
+.logo img {
+  height: 36px;
+  width: auto;
+  display: block;
 }
 
 /* Navigation */
