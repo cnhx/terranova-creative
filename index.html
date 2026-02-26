@@ -39,12 +39,7 @@
      HERO — full bleed dark
      ==================================================== -->
 <section class="hero">
-  <!--
-    Replace data-src with a high-resolution photo URL.
-    Suggested: a dramatic museum interior, cultural venue, or architectural space.
-    Example: data-src="https://images.unsplash.com/photo-XXXXXXXX?auto=format&fit=crop&w=1920&q=80"
-  -->
-  <div class="hero-bg" data-src="" style="background-image: linear-gradient(135deg, #1a1a14 0%, #2a2a20 50%, #0d0d0b 100%);"></div>
+  <div class="hero-bg" style="background-image: url('assets/hero-bg.jpg'); opacity: 0.28;"></div>
 
   <div class="container">
     <div class="hero-content">
@@ -82,11 +77,11 @@
           Institutional advisory begins with structural clarity — not visibility.
         </p>
 
-        <!-- Three image thumbnails (replace with actual photography) -->
+        <!-- Philosophy thumbnails -->
         <div class="philosophy-images fade-in delay-2">
-          <div class="img-block" style="background:#d8d4ce;"></div>
-          <div class="img-block" style="background:#c8c4be;"></div>
-          <div class="img-block" style="background:#e2ded8;"></div>
+          <div class="img-block"><img src="assets/philosophy-1.jpg" alt="Cultural texture detail" loading="lazy" /></div>
+          <div class="img-block"><img src="assets/philosophy-2.jpg" alt="Archival materials" loading="lazy" /></div>
+          <div class="img-block"><img src="assets/philosophy-3.jpg" alt="Architectural intersection" loading="lazy" /></div>
         </div>
       </div>
 
@@ -187,8 +182,8 @@
       </div>
 
       <!-- Sticky image -->
-      <div class="accordion-image fade-in delay-2" style="background:#d0ccc6;">
-        <!-- Replace with: <img src="..." alt="Practice area visual" /> -->
+      <div class="accordion-image fade-in delay-2">
+        <img src="assets/practice-sidebar.jpg" alt="Institutional practice" loading="lazy" />
       </div>
 
     </div>
@@ -242,8 +237,8 @@
       </div>
 
       <!-- Image (dark tone) -->
-      <div class="features-image fade-in delay-2" style="background:#1c1c18;">
-        <!-- Replace with: <img src="..." alt="Approach visual" /> -->
+      <div class="features-image fade-in delay-2">
+        <img src="assets/features-dark.jpg" alt="Structural approach" loading="lazy" />
       </div>
 
     </div>
@@ -254,7 +249,7 @@
      FULL-WIDTH CLOSING CTA
      ==================================================== -->
 <section class="cta-full">
-  <div class="cta-full-bg" style="background: linear-gradient(135deg, #1a1a14, #2c2c22);"></div>
+  <div class="cta-full-bg" style="background-image: url('assets/cta-bg.jpg'); background-size: cover; background-position: center;"></div>
   <div class="cta-full-content">
     <p class="cta-full-headline fade-in">
       Structure<br />strengthens culture.
