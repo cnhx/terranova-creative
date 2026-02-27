@@ -19,16 +19,30 @@ const observer = new IntersectionObserver(
 
 fadeEls.forEach((el) => observer.observe(el));
 
-// --- Active nav link ---
+// --- Active nav link for single-page anchors ---
 const navLinks = document.querySelectorAll('.site-nav a');
-const currentPath = window.location.pathname.split('/').pop() || 'index.html';
+const sections = Array.from(navLinks)
+  .map((link) => document.querySelector(link.getAttribute('href')))
+  .filter(Boolean);
 
-navLinks.forEach((link) => {
-  const href = link.getAttribute('href');
-  if (href === currentPath || (currentPath === '' && href === 'index.html')) {
-    link.classList.add('active');
-  }
-});
+const setActiveLink = () => {
+  const scrollPoint = window.scrollY + 120;
+  let activeId = sections[0] ? `#${sections[0].id}` : '';
+
+  sections.forEach((section) => {
+    if (scrollPoint >= section.offsetTop) {
+      activeId = `#${section.id}`;
+    }
+  });
+
+  navLinks.forEach((link) => {
+    link.classList.toggle('active', link.getAttribute('href') === activeId);
+  });
+};
+
+setActiveLink();
+window.addEventListener('scroll', setActiveLink, { passive: true });
+window.addEventListener('hashchange', setActiveLink);
 
 // --- Mobile nav toggle ---
 const navToggle = document.querySelector('.nav-toggle');
@@ -41,17 +55,17 @@ if (navToggle && siteHeader) {
     navToggle.setAttribute('aria-expanded', expanded);
   });
 
-  // Close mobile nav when a link is clicked
   navLinks.forEach((link) => {
     link.addEventListener('click', () => {
       siteHeader.classList.remove('nav-open');
+      navToggle.setAttribute('aria-expanded', 'false');
     });
   });
 
-  // Close on outside click
   document.addEventListener('click', (e) => {
     if (!siteHeader.contains(e.target)) {
       siteHeader.classList.remove('nav-open');
+      navToggle.setAttribute('aria-expanded', 'false');
     }
   });
 }
@@ -62,30 +76,25 @@ if (form) {
   form.addEventListener('submit', (e) => {
     e.preventDefault();
 
-    const get = (id) => (form.querySelector('#' + id) || {}).value || '';
+    const get = (id) => (form.querySelector(`#${id}`) || {}).value?.trim() || '';
     const name = get('name');
-    const org = get('organization');
-    const role = get('role');
-    const email = get('email');
-    const inquiry = get('inquiry');
+    const organization = get('organization');
+    const message = get('message');
 
-    if (!name || !email) {
-      alert('Please provide your name and email.');
+    if (!name) {
+      alert('Please provide your name.');
       return;
     }
 
-    const subject = `Inquiry from ${name}${org ? ' — ' + org : ''}`;
+    const subject = `Institutional inquiry from ${name}`;
     const body = [
       `Name: ${name}`,
-      org ? `Organization: ${org}` : '',
-      role ? `Role: ${role}` : '',
-      `Email: ${email}`,
+      organization ? `Organization: ${organization}` : '',
       '',
-      'Inquiry:',
-      inquiry,
+      'Message:',
+      message || '(No message provided)'
     ].filter(Boolean).join('\n');
 
-    window.location.href =
-      `mailto:svampire@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    window.location.href = `mailto:info@Terranovacreative.co?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
   });
 }
